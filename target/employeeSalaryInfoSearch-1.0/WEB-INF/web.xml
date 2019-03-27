@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	
+	<servlet>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+	
+	
+		<servlet>
+        <servlet-name>salaryServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.SalaryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>salaryServlet</servlet-name>
+        <url-pattern>/salary/query</url-pattern>
+    </servlet-mapping>
+	
+	<servlet>
+        <servlet-name>queryAccumulationServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.QueryAccumulationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>queryAccumulationServlet</servlet-name>
+        <url-pattern>/queryAccumulation</url-pattern>
+    </servlet-mapping>
+	
+	<servlet>
+        <servlet-name>monthSectionServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.MonthSectionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>monthSectionServlet</servlet-name>
+        <url-pattern>/monthSection</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>querySalaryDetailServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.QuerySalaryDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>querySalaryDetailServlet</servlet-name>
+        <url-pattern>/querySalaryDetail</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>textPdfServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.TextPdfServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>textPdfServlet</servlet-name>
+        <url-pattern>/accumulationReport</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>textPdfSessionServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.TextPdfSessionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>textPdfSessionServlet</servlet-name>
+        <url-pattern>/textPdfSessionPritn</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>querySocialSecServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.QuerySocialSecServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>querySocialSecServlet</servlet-name>
+        <url-pattern>/querySocialSec</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>socialSecPdfServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.SocialSecPdfServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>socialSecPdfServlet</servlet-name>
+        <url-pattern>/socialSecReport</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>socialSecPdfSessionServlet</servlet-name>
+        <servlet-class>com.carrefour.servlet.SocialSecPdfSessionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>socialSecPdfSessionServlet</servlet-name>
+        <url-pattern>/socialSecPdfSession</url-pattern>
+    </servlet-mapping>
+
+</web-app>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="springContextUtils" class="com.carrefour.utils.SpringContextUtils"/>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url" value="jdbc:sqlserver://10.132.250.133:1433;DatabaseName=ecology" />
+		<property name="username" value="sa" />
+		<property name="password" value="ecology123456!" />
+   </bean>
+	
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation"><!-- name 为configLocation或s不可为其他 -->
+			<value>classpath:SqlMapConfig.xml</value> <!-- 不区分大小写，路径前可加'/' -->
+		</property>
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="userDAO" class="com.carrefour.dao.impl.UserDaoImpl">
+		<!-- dataSource不是必需 -->
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+
+		<!-- sqlMapClient必需 -->
+		<property name="sqlMapClient">
+			<ref local="sqlMapClient"/>
+		</property> 
+	</bean>
+	
+	<bean id="userService" class="com.carrefour.service.impl.UserServiceImpl">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	
+	<!-- transactionManager不是必需-->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	
+	<!-- 声明式事务管理 -->
+    <bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+        <property name="transactionManager" ref="transactionManager"></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="add*">PROPAGATION_REQUIRED</prop>            
+                <prop key="edit*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

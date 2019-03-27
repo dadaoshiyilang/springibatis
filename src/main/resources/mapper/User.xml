@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+    <!DOCTYPE sqlMap  
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"  
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">   
+    <sqlMap>
+	    <resultMap id="nameMap" class="com.carrefour.entity.MobileDto">
+	        <result property="id" column="id" javaType="java.lang.Integer"/>
+	    	<result property="mobile" column="Mobile" javaType="java.lang.String"/>
+		</resultMap>
+	    <select id="getMobile" resultMap="nameMap" parameterClass="java.lang.Integer">
+	    	select id, mobile from hrmresource where id = #userid# 
+	    </select>
+	    
+	    <select id="getMobileTest" resultClass="java.lang.String" parameterClass="java.lang.Integer">
+	     select mobile from hrmresource where id=#userid#
+	    </select>
+	    
+	    <select id="queryMonth" resultClass="com.carrefour.entity.Salary" parameterClass="java.lang.Integer">
+	    	<![CDATA[ SELECT id as id ,field34 as month FROM dbo.cus_fielddata
+			where id = #userid# and scopeid = '3' ]]>
+	    </select>
+	    
+	    <resultMap id="map-item-name" class="com.carrefour.entity.FieldDto">
+	    	<result property="id" column="id"/>
+			<result property="field2" column="field2"/>
+			<result property="field3" column="field3"/>
+		</resultMap>
+		<select id="getfileCode" resultMap="map-item-name" parameterClass="java.lang.Integer">
+			select top(1) id,field2,field3 from cus_fielddata where id=#userid#
+		</select>
+		<select id="getSubcompanyname" parameterClass="java.util.Map" resultClass="java.lang.String">
+			<![CDATA[ select replace(replace(subcompanyname,'~`~`',''),'`~`~','') as subcompanyname 
+			from HrmSubcompanyDefined t ,HrmSubCompany t1 
+			where t.subcomid=t1.id and t.bucode=#bucode# and t.alcode=#alcode#
+			]]>
+		</select>
+    </sqlMap>
